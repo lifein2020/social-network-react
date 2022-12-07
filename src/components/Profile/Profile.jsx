@@ -1,17 +1,12 @@
-import MyPosts from './MyPosts/MyPosts';
 import s from './Profile.module.css';
+import MyPosts from './MyPosts/MyPosts';
+import ProfileInfo from './ProfileInfo/ProfileInfo';
 
-const Profile = () => {
+const Profile = ({ state }) => {
     return (
         <div>
-            <div>
-                <img src="http://dimg02.c-ctrip.com/images/fd/tg/g2/M06/47/EC/CghzgFUeNw6ASWHDAAuTAD7pObo536_R_1600_10000.jpg" className={s.contentImg} alt="five apostles" />
-            </div>
-            <div>
-                <img src="https://protrip.ru/wp-content/uploads/2016/09/artleo.com-74103.jpg" alt="traveler" className={s.content__profilePhoto} />
-                + description
-            </div>
-            <MyPosts />
+            <ProfileInfo />
+            <MyPosts posts={state.posts}/>
         </div>
   )
 }

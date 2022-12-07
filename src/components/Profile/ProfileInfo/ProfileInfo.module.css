@@ -1,0 +1,12 @@
+.content__profilePhoto {
+    width: 200px;
+    transform: scale(-1, 1);
+}
+
+.contentImg {
+    width: 100%;
+}
+
+.descriptionBlock {
+    padding:10px;
+}

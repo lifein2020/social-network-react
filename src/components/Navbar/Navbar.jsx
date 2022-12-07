@@ -5,7 +5,7 @@ import s from './Navbar.module.css';
 const Navbar = () => {
     return (
         <nav className={ s.nav }>
-            <ul >
+            <ul>
                 <li className={ s.item }>
                     <NavLink to="/profile" className={({ isActive }) => `${s.link} ${(isActive ? `${s.activeLink}` : "")}`}>Profile</NavLink>
                 </li>
