@@ -1,26 +1,25 @@
-// import s from './MyPosts.module.css';
 import React from 'react';
 import Post from './Post/Post';
 import s from './MyPosts.module.css'
-import { Ref } from 'react';
+import { addPostActionCreator, updateNewPostTextActionCreator } from '../../../redux/state';
 
-const MyPosts = ({ posts }) => {
-
-    // let posts = [
-    //     {id: 1, message: 'Hello! How are you?', likesCount: 7},
-    //     {id: 2, message: 'It\'s time to go snowboarding! Who goes with me?', likesCount: 9},
-    //     {id: 3, message: 'Aloha! I\'m on Havai!', likesCount: 7},
-    // ];
+const MyPosts = ({ posts, dispatch, newPostText }) => {
 
     let postsElements = posts.map(post => <Post message={post.message} likesCount={post.likesCount} />);
     
     let newPostElement = React.createRef();
 
     let addPost = () => {
-console.log(newPostElement)
-        let text = newPostElement.current.value;
-        console.log(text)
-        alert(text);
+        console.log(newPostElement)
+        let text = newPostElement.current.value; 
+        let action = addPostActionCreator(text);
+        dispatch(action);
+    }
+
+    let onPostChange = () => {
+        let text = newPostElement.current.value; 
+        let action = updateNewPostTextActionCreator(text);
+        dispatch(action);
     }
 
     return (
@@ -28,10 +27,10 @@ console.log(newPostElement)
             <h3>My posts</h3>
             <div>
                 <div>
-                    <textarea ref={newPostElement}></textarea>
+                    <textarea onChange={ onPostChange } ref={newPostElement} value={newPostText}></textarea>
                 </div>
                 <div>
-                    <button onClick={addPost} >Add post</button>
+                    <button onClick={ addPost }>Add post</button>
                 </div>
             </div>
             <div className={s.posts}>
