@@ -1,8 +1,20 @@
 const ADD_POST = 'ADD-POST';
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
 
-const profileReducer = (state, action) => {
+// Объект, передаваемый в качестве первоначального значения (скопировали из store.js -> _state -> profilePage)
+let initialState = {
+    posts: [
+        { id: 1, message: 'Hello! How are you?', likesCount: 7 },
+        { id: 2, message: 'It\'s time to go snowboarding! Who goes with me?', likesCount: 9 },
+        { id: 3, message: 'Aloha! I\'m on Havai!', likesCount: 7 },
+      ],
+      newPostText: "Samurai way",
+};
 
+// Инициализируем начальное значение с помощью параметров по умолчанию state = initialState
+
+const profileReducer = (state = initialState, action) => {
+// debugger
     switch (action.type) {
         case ADD_POST:
             let newPost = {
@@ -10,19 +22,17 @@ const profileReducer = (state, action) => {
                 message: state.newPostText,
                 likesCount: 0
             };
-            state.posts.push(newPost); //this._state.profilePage.posts.push(newPost); (state===this._state.profilePage)
-            state.newPostText = ''; // this._state.profilePage.newPostText = '';
-            // this._callSubscriber(this._state); не в респонсибилити редьюсера
+            state.posts.push(newPost); 
+            state.newPostText = ''; 
             return state; // если action не изменил state, вместо breack
 
         case UPDATE_NEW_POST_TEXT:
             state.newPostText = action.newText;
-            // this._callSubscriber(this._state);
             return state;
         default:
             return state;
     }
-    
+
 }
 
 export default profileReducer;
