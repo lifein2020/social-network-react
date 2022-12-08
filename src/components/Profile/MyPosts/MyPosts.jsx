@@ -10,7 +10,6 @@ const MyPosts = ({ posts, dispatch, newPostText }) => {
     let newPostElement = React.createRef();
 
     let addPost = () => {
-        console.log(newPostElement)
         let text = newPostElement.current.value; 
         let action = addPostActionCreator(text);
         dispatch(action);
