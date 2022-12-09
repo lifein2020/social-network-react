@@ -1,11 +1,11 @@
 import s from './Dialogs.module.css';
 import DialogItem from './DialogItem/DialogItem';
 import Message from './Message/Message';
-import { sendMessageCreator, updateNewMessageBodyCreator } from '../../redux/store';
 
-const Dialogs = ({ store }) => {
+const Dialogs = ({ dialogsPage, sendMessage, updateNewMessageBody }) => {
 
-    let state = store.getState().dialogsPage;
+    // К store эта презентационная компонента не обращается
+    let state = dialogsPage;
 
     // ... преобразуем в новый массив компонентов с пропсами
     let dialogsElements = state.dialogs.map(dialog => <DialogItem name={dialog.name} id={dialog.id} />);
@@ -13,12 +13,13 @@ const Dialogs = ({ store }) => {
     let newMessageBody = state.newMessageBody;
 
     let onSendMessageClick = () => {
-        store.dispatch(sendMessageCreator());
+        // вызываем callback, который пришел через props, вся его логика в <DialogsContainer /> в onSendMessageClick()- если нажали на кнопку, надо отправить сообщение
+        sendMessage(); 
     }
 
     let onNewMessageChange = (e) => {
         let body = e.target.value;
-        store.dispatch(updateNewMessageBodyCreator(body))
+        updateNewMessageBody(body);
     }
 
     // рендерим
