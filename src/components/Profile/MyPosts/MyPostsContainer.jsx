@@ -5,37 +5,10 @@ import { addPostActionCreator, updateNewPostTextActionCreator } from '../../../r
 import MyPosts from './MyPosts';
 import { connect } from 'react-redux';
 
-// const MyPostsContainer = () => {
-
-//     return (
-//         <StoreContext.Consumer> 
-//             { (store) => { // фигурные скобки строго на новой строке!!! т.е. ребенок как функция с новой строки
-//                 let state = store.getState();
-
-//                 let addPost = () => {
-//                     store.dispatch(addPostActionCreator());
-//                 }
-
-//                 let onPostChange = (text) => {
-//                     let action = updateNewPostTextActionCreator(text);
-//                     store.dispatch(action);
-//                 }
-//                 return (
-//                     <MyPosts updateNewPostText={onPostChange}
-//                              addPost={addPost}
-//                              posts={state.profilePage.posts}
-//                              newPostText={state.profilePage.newPostText}
-//                     />
-//                 )
-//             }
-//         }
-//         </StoreContext.Consumer>
-//     )
-// }
-
+// state изменился (в reducer), контейнер подписан на изменения, контейнер вызывает эту функцию 
 const mapStateToProps = (state) => {
     return {
-        posts: state.profilePage.posts,
+        posts: state.profilePage.posts, // ссылка на posts копии state, сделанной в profileReducer
         newPostText: state.profilePage.newPostText,
     }
 }

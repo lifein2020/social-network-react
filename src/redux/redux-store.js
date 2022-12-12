@@ -13,4 +13,8 @@ let reducers = combineReducers({
 
 let store = createStore(reducers);
 
+// Ссылку на store сохраняем в глобальный объек window
+// Проверка: F12 -> Console -> набираем store или store.getState() -> смотрим что лежит там
+window.store = store;
+
 export default store;
