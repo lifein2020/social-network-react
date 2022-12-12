@@ -29,6 +29,7 @@ let mapDispatchToProps = (dispatch) => {
 
 // connect() возвращает новую контейнерную компоненту, которая внутри рендерит презентационную компоненту, внутрь презентационной компоненты в качестве props передает те свойства, которые сидят в объектах, которые ретурнит mapStateToProp, mapDispatchToProp.Настраиваем данными функциями connect.
 // Dialogs законнектится к store по правилам connect()
+// Dialogs перерисуется, если изменится объект state.dialogsPage
 
 const DialogsContainer = connect(mapStateToProps, mapDispatchToProps) (Dialogs);
 

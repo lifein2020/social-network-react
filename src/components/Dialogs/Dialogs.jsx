@@ -8,9 +8,10 @@ const Dialogs = ({ dialogsPage, sendMessage, updateNewMessageBody }) => {
     let state = dialogsPage;
 
     // ... преобразуем в новый массив компонентов с пропсами
-    let dialogsElements = state.dialogs.map(dialog => <DialogItem name={dialog.name} id={dialog.id} />);
-    let messagesElements = state.messages.map(message => <Message message={message.message} />);
-    let newMessageBody = state.newMessageBody;
+    // там где мапится массив элементов всегода добавляем key, в качестве которого id элемента из которго получаем JSX-'элемент, чтобы эти элементы были уникальными
+    let dialogsElements = state.dialogs.map(dialog => <DialogItem name={dialog.name} key={dialog.id} id={dialog.id} />);
+    let messagesElements = state.messages.map(message => <Message message={message.message} key={message.id} />);
+    let newMessagesBody = state.newMessagesBody;
 
     let onSendMessageClick = () => {
         // вызываем callback, который пришел через props, вся его логика в <DialogsContainer /> в onSendMessageClick()- если нажали на кнопку, надо отправить сообщение
@@ -32,9 +33,9 @@ const Dialogs = ({ dialogsPage, sendMessage, updateNewMessageBody }) => {
                 <div>{messagesElements}</div>   
                 <div>
                     <div>
-                        <textarea value={newMessageBody}
-                                   onChange={onNewMessageChange}
-                                   placeholder="Enter your message">
+                        <textarea value={newMessagesBody}
+                                  onChange={onNewMessageChange}
+                                  placeholder="Enter your message">
                         </textarea>
                     </div>
                     <div><button onClick={onSendMessageClick}>Send</button></div>
