@@ -21,19 +21,6 @@ let initialState = {
 
 const dialogsReducer = (state = initialState, action) => {
 
-  // Если в mapStateToProps (DialogsContainer) попадают props из ветки dialogsPage
-  // Делаем копию только того, что меняем => пушим в массив messages новый элемент, т.к. сам элемент(представляем собой объект) не изменяем, то его копию не делаем.
-
-  //  не лучший способ копирования
-  // let stateCopy = { ...state };
-  // stateCopy = [...state.messages];
-
-  // более грамотный способ копирования
-  // let stateCopy = {
-  //   ...state,
-  //   messages: [...state.messages] // поверхностная копия массива стейта
-  // };
-
   // Для каждого action своя копия state
 
   switch (action.type) {

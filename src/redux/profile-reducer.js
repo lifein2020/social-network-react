@@ -14,13 +14,6 @@ let initialState = {
 // Инициализируем начальное значение с помощью параметров по умолчанию state = initialState
 
 const profileReducer = (state = initialState, action) => {
-
-    // более грамотный способ копирования
-    // let stateCopy = {
-    //     ...state, // поверхностная копия state ===  let stateCopy = {...state};
-    //     posts: [...state.posts] // меняется объект posts(пушаться новые посты) => делаем его копию ===  stateCopy.posts = [...state.posts];
-    // }
-
     // debugger
     switch (action.type) {
         case ADD_POST: { // фигурные кавычки, т.к. stateCopy в каждом свой
@@ -35,14 +28,7 @@ const profileReducer = (state = initialState, action) => {
                 posts: [...state.posts, newPost],
                 newPostText: '',
             }
-            //  2 способ
-            // сначала делаем копию объекта
-            // let stateCopy = {...state};  // поверхностная копия (shadoy), не копирует объекты(массивы) внутри объекта
-            // stateCopy.posts = [...state.posts]; // глубокая копия - копия массива внутри объекта, делаем чтобы посты в массиве поменять
-            // // потом изменяем в копии данные
-            // stateCopy.posts.push(newPost);  
-            // stateCopy.newPostText = ''; 
-            // return stateCopy; // если action не изменил state, вместо breack
+
         }
 
         case UPDATE_NEW_POST_TEXT: {
@@ -51,11 +37,6 @@ const profileReducer = (state = initialState, action) => {
                 ...state,
                 newPostText: action.newText,
             }
-
-            //  2 способ
-            // let stateCopy = {...state}; // копия предыдущей копии (stateCopy) 
-            // stateCopy.newPostText = action.newText; // примитив, глубокая копия не нужна => в этой копии остается ссылка на массив предыдущей копии 
-            // return stateCopy;
         }
         default:
             return state;
