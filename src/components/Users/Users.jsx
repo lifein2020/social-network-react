@@ -1,65 +1,53 @@
 import React from "react";
 import styles from './users.module.css';
-import axios from 'axios';
-// экспортируется много всего, а мы это упаковываем в один объект axios, а мы будем обращаться через этот объект ко всему тому, что импортировали:
-// import * as axios from "axios";
 import userPhoto from '../../assets/images/user.png';
 
-class Users extends React.Component {
-    componentDidMount() {
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
-            .then(response => {
-                // debugger
-                this.props.setUsers(response.data.items);
-                this.props.setTotalUsersCount(response.data.totalCount);
-            });
-    }
+// в props приходят из UsersAPIComponent:
+//totalUsersCount, 
+// pageSize, 
+// currentPage,
+// onPageChanged,
+// users,
+// follow,
+// unfollow
 
-    onPageChanged = (pageNumber) => {
-        this.props.setCurrentPage(pageNumber);
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`)
-            .then(response => {
-                // debugger
-                this.props.setUsers(response.data.items);
-            });
-    }
+let Users = (props) => {
 
-    render() {
-        // Количество страниц с пользователями (1 2 3 4 ...)
-        // totalUsersCount - приходит с запросом
-        // pageSize - по сколько пользователей надо выводить на страницу по дизайну
-        let pagesCount = Math.ceil(this.props.totalUsersCount / this.props.pageSize);
+    // Количество страниц с пользователями (1 2 3 4 ...)
+    // pageSize - по сколько пользователей надо выводить на страницу по дизайну
+    let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize);
 
-        // массив, из которго компонента берет нужную страницу для отрисовки
-        let pages = [];
-        for (let i = 1; i <= pagesCount; i++) {
-            if (pages.length < 10) {
-                pages.push(i);
-            }
+    // массив, из которго компонента берет нужную страницу для отрисовки
+    let pages = [];
+    for (let i = 1; i <= pagesCount; i++) {
+        if (pages.length < 10) {
+            pages.push(i);
         }
-
-        return <div>
-            {/* return < span className={this.props.currentPage === p ? styles.selectedPage : " "}  */}
+    }
+    // return < span className={currentPage === p ? styles.selectedPage : " "}
+    return (
+        <div>
             <div>
                 {pages.map(p => {
-                    return <span className={this.props.currentPage === p && styles.selectedPage} 
-                                 onClick={ (e) => { this.onPageChanged(p) }} 
+                    debugger
+                    return <span className={props.currentPage === p && styles.selectedPage}
+                                 onClick={(e) => { props.onPageChanged(p) }}
                                  key={p.id}>
-                                {`${p} ${" "}`}   
-                            </span>
+                        {`${p} ${" "}`}
+                    </span>
                 })}
             </div>
 
             {
-                this.props.users.map(user => <div key={user.id}>
+                props.users.map(user => <div key={user.id}>
                     <span>
                         <div>
                             <img src={user.photos.small != null ? user.photos.small : userPhoto} className={styles.userPhoto} />
                         </div>
                         <div>
                             {user.followed
-                                ? <button onClick={() => { this.props.unfollow(user.id) }} >Unfollow</button>
-                                : <button onClick={() => { this.props.follow(user.id) }} >Follow</button>}
+                                ? <button onClick={() => { props.unfollow(user.id) }} >Unfollow</button>
+                                : <button onClick={() => { props.follow(user.id) }} >Follow</button>}
 
                         </div>
                     </span>
@@ -77,9 +65,7 @@ class Users extends React.Component {
             }
 
         </div>
-    }
-
+    )
 }
-
 
 export default Users;
