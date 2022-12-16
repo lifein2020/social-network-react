@@ -3,6 +3,7 @@ const UNFOLLOW = 'UNFOLLOW';
 const SET_USERS = 'SET_USERS';
 const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE';
 const SET_TOTAL_USERS_COUNT = 'SET_TOTAL_USERS_COUNT';
+const TOGGLE_IS_FETCHING = 'TOGGLE_IS_FETCHING';
 
 // Объект, передаваемый в качестве первоначального значения (скопировали из store.js -> _state -> profilePage)
 let initialState = {
@@ -10,6 +11,7 @@ let initialState = {
     pageSize: 5,
     totalUsersCount: 0,
     currentPage: 1,
+    isFetching: true
 };
 
 // Инициализируем начальное значение с помощью параметров по умолчанию state = initialState
@@ -56,6 +58,12 @@ const usersReducer = (state = initialState, action) => {
                 totalUsersCount: action.count,
             }
         }
+        case TOGGLE_IS_FETCHING: {
+            return {
+                ...state,
+                isFetching: action.isFetching, // isFetching в action берется из toggleIsFetchingActionCreator
+            }
+        }
         default:
             return state;
     }
@@ -68,5 +76,7 @@ export const setUsersActionCreator = (users) => ({ type: SET_USERS, users }) // 
 // export const setCurrentPageActionCreator = (page) => ({ type: SET_CURRENT_PAGE, currentPage: page })
 export const setCurrentPageActionCreator = (currentPage) => ({ type: SET_CURRENT_PAGE, currentPage })
 export const setUsersTotalCountActionCreator = (totalUsersCount) => ({ type: SET_TOTAL_USERS_COUNT, count: totalUsersCount })
+export const toggleIsFetchingActionCreator = (isFetching) => ({ type: TOGGLE_IS_FETCHING, isFetching })
+
 
 export default usersReducer;

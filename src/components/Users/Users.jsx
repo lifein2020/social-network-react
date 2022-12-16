@@ -1,4 +1,4 @@
-import React from "react";
+import React from "react"; // нужен для транспиляции babel'ом jsx в js для браузера
 import styles from './users.module.css';
 import userPhoto from '../../assets/images/user.png';
 
@@ -29,7 +29,6 @@ let Users = (props) => {
         <div>
             <div>
                 {pages.map(p => {
-                    debugger
                     return <span className={props.currentPage === p && styles.selectedPage}
                                  onClick={(e) => { props.onPageChanged(p) }}
                                  key={p.id}>
