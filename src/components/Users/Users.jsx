@@ -1,6 +1,7 @@
 import React from "react"; // нужен для транспиляции babel'ом jsx в js для браузера
 import styles from './users.module.css';
 import userPhoto from '../../assets/images/user.png';
+import { NavLink } from "react-router-dom";
 
 // в props приходят из UsersAPIComponent:
 //totalUsersCount, 
@@ -41,7 +42,9 @@ let Users = (props) => {
                 props.users.map(user => <div key={user.id}>
                     <span>
                         <div>
-                            <img src={user.photos.small != null ? user.photos.small : userPhoto} className={styles.userPhoto} />
+                            <NavLink to={'/profile' + user.id}>
+                            <img src={user.photos.small != null ? user.photos.small : userPhoto} className={styles.userPhoto} alt='User'/>
+                            </NavLink>
                         </div>
                         <div>
                             {user.followed

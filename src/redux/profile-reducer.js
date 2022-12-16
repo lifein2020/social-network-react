@@ -1,5 +1,6 @@
 const ADD_POST = 'ADD-POST';
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
+const SET_USER_PROFILE = 'SET_USER_PROFILE';
 
 // Объект, передаваемый в качестве первоначального значения (скопировали из store.js -> _state -> profilePage)
 let initialState = {
@@ -9,6 +10,7 @@ let initialState = {
         { id: 3, message: 'Aloha! I\'m on Havai!', likesCount: 7 },
     ],
     newPostText: "Samurai way",
+    profile: null,
 };
 
 // Инициализируем начальное значение с помощью параметров по умолчанию state = initialState
@@ -30,12 +32,18 @@ const profileReducer = (state = initialState, action) => {
             }
 
         }
-
         case UPDATE_NEW_POST_TEXT: {
             // 1 способ
             return {
                 ...state,
                 newPostText: action.newText,
+            }
+        }
+        case SET_USER_PROFILE: {
+            // 1 способ
+            return {
+                ...state,
+                profile: action.profile,
             }
         }
         default:
@@ -48,6 +56,6 @@ export const addPostActionCreator = () => ({ type: ADD_POST })
 export const updateNewPostTextActionCreator = (text) => (
     { type: UPDATE_NEW_POST_TEXT, newText: text }
 )
-
+export const setUserProfile = (profile) => ({type: SET_USER_PROFILE, profile})
 
 export default profileReducer;

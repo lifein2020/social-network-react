@@ -41,7 +41,7 @@ const usersReducer = (state = initialState, action) => {
             }
         case SET_USERS: {
             return { 
-                ... state, 
+                ...state,
                 // users: [...state.users, ...action.users ]} // заменяем имеющихся пользователей на тех, что пришли с сервера, перезатирая весь массив users
                 users: action.users
             }
@@ -69,14 +69,6 @@ const usersReducer = (state = initialState, action) => {
     }
 
 }
-
-// export const followActionCreator = (userId) => ({ type: FOLLOW, userId })
-// export const unfollowActionCreator = (userId) => ({ type: UNFOLLOW, userId })
-// export const setUsersActionCreator = (users) => ({ type: SET_USERS, users }) // users приходят с сервера
-// // export const setCurrentPageActionCreator = (page) => ({ type: SET_CURRENT_PAGE, currentPage: page })
-// export const setCurrentPageActionCreator = (currentPage) => ({ type: SET_CURRENT_PAGE, currentPage })
-// export const setUsersTotalCountActionCreator = (totalUsersCount) => ({ type: SET_TOTAL_USERS_COUNT, count: totalUsersCount })
-// export const toggleIsFetchingActionCreator = (isFetching) => ({ type: TOGGLE_IS_FETCHING, isFetching })
 
 export const follow = (userId) => ({ type: FOLLOW, userId })
 export const unfollow = (userId) => ({ type: UNFOLLOW, userId })

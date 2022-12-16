@@ -52,44 +52,4 @@ let mapStateToProps = (state) => {
     }
 }
 
-// Теперь connect сам создает mapDispatchToProps, а мы передаем ему объект с Action Creators, при этом  followActionCreator переименовали в follow и т.п., чтобы можно было сократить код
-
-// Удаляем:
-// let mapDispatchToProps = (dispatch) => {
-//     return {
-//         follow: (userId) => {
-//             dispatch(followActionCreator(userId));
-//         },
-//         unfollow: (userId) => {
-//             dispatch(unfollowActionCreator(userId));
-//         },
-//         // users приходят извне
-//         setUsers: (users) => {
-//             dispatch(setUsersActionCreator(users));
-//         },
-//         setCurrentPage: (pageNumber) => {
-//             dispatch(setCurrentPageActionCreator(pageNumber));
-//         },
-//         setTotalUsersCount: (totalCount) => {
-//             dispatch(setUsersTotalCountActionCreator(totalCount));
-//         },
-//         // toggleIsFetchingActionCreator(isFetching) возвращает объект action который диспатчим
-//         toggleIsFetching: (isFetching) => {
-//             dispatch(toggleIsFetchingActionCreator(isFetching));
-//         },
-       
-//     }
-// }
-
-// 1 шаг рефакторинга
-// export default connect(mapStateToProps, {
-//     follow: followActionCreator,
-//     unfollow: unfollowActionCreator,
-//     setUsers: setUsersActionCreator,
-//     setCurrentPage: setCurrentPageActionCreator,
-//     setUsersTotalCount: setUsersTotalCountActionCreator,
-//     toggleIsFetching: toggleIsFetchingActionCreator,
-// }) (UsersAPIComponent)
-
-// 2 шаг рефакторинга
 export default connect(mapStateToProps, { follow, unfollow, setUsers, setCurrentPage, setTotalUsersCount, toggleIsFetching,}) (UsersAPIComponent)
