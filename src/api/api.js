@@ -4,9 +4,9 @@ import axios from "axios";
 const instance = axios.create({
     withCredentials: true,
     baseURL: 'https://social-network.samuraijs.com/api/1.0/',
-    // header: {
-    //     "API-KEY": ""
-    // }
+    header: {
+        "API-KEY": "6d29aaca-9c33-4267-8483-b33b2" // сгенерировано на сайте
+    }
 })
 
 // впомогательный объект, содержащий методы - упаковка для всех методов
