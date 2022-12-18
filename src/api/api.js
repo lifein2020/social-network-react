@@ -16,6 +16,12 @@ export const usersAPI = {
             .then(response => {
                 return response.data; // чтобы в компоненту не передавалось ничего лишнего
             })
+    },
+    follow(userId) {
+        return instance.post(`https://social-network.samuraijs.com/api/1.0/follow/${userId}`)
+    },
+    unfollow(userId) {
+        return instance.delete(`https://social-network.samuraijs.com/api/1.0/follow/${userId}`)
     }
 }
 
@@ -33,11 +39,4 @@ export const usersAPI = {
 //         withCredentials: true
 //     })
 //     .then(response => response.data)
-// }
-
-// export const getUsersFollow = (currentPage=1, pageSize=10) => {
-//     return instance.axios.get(`follow?page=${currentPage}&count=${pageSize}`) 
-//         .then(response => {
-//             return response.data;
-//         })
 // }

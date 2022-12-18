@@ -2,7 +2,6 @@ import React from "react"; // нужен для транспиляции babel'�
 import styles from './users.module.css';
 import userPhoto from '../../assets/images/user.png';
 import { NavLink } from "react-router-dom";
-import axios from "axios";
 
 // в props приходят из UsersAPIComponent:
 //totalUsersCount, 
@@ -51,35 +50,44 @@ let Users = (props) => {
                             {user.followed
                             // Кнопка должна становиться неактивной когда идет запрос на сервер
                                 ? <button disabled={props.followingInProgress.some(id => id === user.id)} onClick={() => { 
-    
-                                    props.toggleFollowingProgress(true, user.Id);
-                                    axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${user.id}`,
-                                    {
-                                        withCredentials: true, // вторым параметром
-                                        header: {
-                                            "API-KEY": "6d29aaca-9c33-4267-8483-b33b2"
-                                        } 
-                                    })
-                                    .then(response => {
-                                        if (response.data.resultCode == 0) {
-                                            props.unfollow(user.id); 
-                                        }
-                                        props.toggleFollowingProgress(false, user.Id);
-                                    });
+                                    props.unfollow(user.id)
+
+                                    //теперь в thunk в user-reducer:
+
+                                    // props.toggleFollowingProgress(true, user.id);
+                                    // usersAPI.follow(user.id)
+
+                                    // //теперь в api.js
+                                    // // axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${user.id}`,
+                                    // // {
+                                    // //     withCredentials: true, // вторым параметром
+                                    // //     header: {
+                                    // //         "API-KEY": "6d29aaca-9c33-4267-8483-b33b2"
+                                    // //     } 
+                                    // // })
+
+                                    // .then(response => {
+                                    //     if (response.data.resultCode === 0) {
+                                    //         props.unfollow(user.id); 
+                                    //     }
+                                    //     props.toggleFollowingProgress(false, user.id);
+                                    // });
                                 }} >Unfollow</button>
 
                                 : <button disabled={props.followingInProgress.some(id => id === user.id)} onClick={() => { 
-                                    props.toggleFollowingProgress(true, user.Id);
-                                    axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${user.id}`, {},
-                                    {
-                                        withCredentials: true // третьим параметром
-                                    })
-                                    .then(response => {
-                                        if (response.data.resultCode == 0) {
-                                            props.follow(user.id);
-                                        }
-                                        props.toggleFollowingProgress(false, user.Id);
-                                    });
+                                    props.follow(user.id)
+                                    // props.toggleFollowingProgress(true, user.id);
+                                    // usersAPI.unfollow(user.id)
+                                    // // axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${user.id}`, {},
+                                    // // {
+                                    // //     withCredentials: true // третьим параметром
+                                    // // })
+                                    // .then(response => {
+                                    //     if (response.data.resultCode === 0) {
+                                    //         props.follow(user.id);
+                                    //     }
+                                    //     props.toggleFollowingProgress(false, user.id);
+                                    // });
                                 }} >Follow</button>}
 
                         </div>

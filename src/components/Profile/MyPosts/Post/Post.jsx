@@ -4,7 +4,7 @@ const Post = ({message, likesCount}) => {
     return (
         <div>
             <div className={s.item}>
-                <img src="https://omoro.ru/wp-content/uploads/2018/05/prikilnie-kartinki-na-avatarky-dlia-devyshek-48.jpg"/>
+                <img src="https://omoro.ru/wp-content/uploads/2018/05/prikilnie-kartinki-na-avatarky-dlia-devyshek-48.jpg" alt="Avatar" />
                 { message }
             </div>
             <span>{likesCount} likes</span>
