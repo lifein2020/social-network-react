@@ -14,7 +14,7 @@ import { withAuthRedirect } from '../../hoc/withAuthRedirect';
 let mapStateToProps = (state) => {
     return {
         dialogsPage: state.dialogsPage, //  в props Dialogs попадет  dialogsPage
-        isAuth: state.auth.isAuth,
+        // isAuth: state.auth.isAuth, // больше здесь не нужен -> перенесли в hoc withAuthRedirect, теперь оттуда передасться автоматически
     }
 }
 
@@ -31,7 +31,6 @@ let mapDispatchToProps = (dispatch) => {
 }
 
 // HOC
-// требует прокидывания isAuth в mapStateToProps
 let AuthRedirectComponent = withAuthRedirect(Dialogs);
 
 // connect() возвращает новую контейнерную компоненту, которая внутри рендерит презентационную компоненту, внутрь презентационной компоненты в качестве props передает те свойства, которые сидят в объектах, которые ретурнит mapStateToProp, mapDispatchToProp.Настраиваем данными функциями connect.
