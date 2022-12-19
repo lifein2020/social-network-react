@@ -11,7 +11,8 @@ import { connect } from 'react-redux';
 // Прилюбых измениях в state запускается эта функция
 let mapStateToProps = (state) => {
     return {
-        dialogsPage: state.dialogsPage //  в props Dialogs попадет  dialogsPage
+        dialogsPage: state.dialogsPage, //  в props Dialogs попадет  dialogsPage
+        isAuth: state.auth.isAuth,
     }
 }
 

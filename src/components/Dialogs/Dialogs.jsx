@@ -1,8 +1,9 @@
 import s from './Dialogs.module.css';
 import DialogItem from './DialogItem/DialogItem';
 import Message from './Message/Message';
+import { redirect, Navigate } from "react-router-dom";
 
-const Dialogs = ({ dialogsPage, sendMessage, updateNewMessageBody }) => {
+const Dialogs = ({ dialogsPage, sendMessage, updateNewMessageBody, isAuth }) => {
 
     // К store эта презентационная компонента не обращается
     let state = dialogsPage;
@@ -22,6 +23,20 @@ const Dialogs = ({ dialogsPage, sendMessage, updateNewMessageBody }) => {
         let body = e.target.value;
         updateNewMessageBody(body);
     }
+
+    // alert(isAuth) // кликаем на Messages - проверяем приходит ли сюда isAuth
+
+    // Если пользовательне залогинен, то при клике на Messages, Profile перенапрвлять его на станицу, где логинятся
+    // react-router-dom v5
+    // if(isAuth == false) return <Redirect to={'/login'} />;
+
+     // react-router-dom v6
+     if(!isAuth) return <Navigate to={'/login'} />;
+     //что-то из доки
+    // if (!isAuth) {
+    //     return redirect("/login");
+    //   }
+    
 
     // рендерим
     return (

@@ -9,7 +9,7 @@ let initialState = {
     userId: null,
     email: null,
     login: null,
-    isAuth: true, // пользователь залогинен
+    isAuth: false, // пользователь не залогинен
 };
 
 // Инициализируем начальное значение с помощью параметров по умолчанию state = initialState
@@ -21,6 +21,7 @@ const authReducer = (state = initialState, action) => {
             return {
                 ...state,
                 ...action.data, // в объекте лежат userId, email,login - они перезатрут те userId, email, login что лежат в state
+                isAuth: true,
             }
         default:
             return state;
