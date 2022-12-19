@@ -1,4 +1,5 @@
 import Preloader from '../../common/preloader/Preloader';
+import ProfileStatus from './ProfileStatus'
 import s from './ProfileInfo.module.css';
 
 const ProfileInfo = (props) => {
@@ -8,12 +9,13 @@ const ProfileInfo = (props) => {
     else {
     return (
         <div>
-            <div>
+            {/* <div>
                 <img src="http://dimg02.c-ctrip.com/images/fd/tg/g2/M06/47/EC/CghzgFUeNw6ASWHDAAuTAD7pObo536_R_1600_10000.jpg" className={s.contentImg} alt="five apostles" />
-            </div>
+            </div> */}
             <div className={s.descriptionBlock}>
                 <img src={props.profile.photos.large} alt='Profile'/>
-                <div>About me:
+                <ProfileStatus status={"hello!"}/>
+                {/* <div>About me:
                     <span> {props.profile.aboutMe}</span>
                 </div>
                 <div>About me:
@@ -37,7 +39,7 @@ const ProfileInfo = (props) => {
                 </div>
                 <div>Full name:
                     <span> {props.profile.fullName}</span>
-                </div>
+                </div> */}
             </div>
         </div>
   )
