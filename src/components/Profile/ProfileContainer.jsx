@@ -4,14 +4,17 @@ import Profile from './Profile';
 import { getUserProfile } from '../../redux/profile-reducer';
 import { Navigate } from "react-router-dom";
 import { withAuthRedirect } from '../../hoc/withAuthRedirect';
+// import { compose } from 'redux';
 // import {withRouter} from "react-router-dom"
 import {
     useLocation,
     useNavigate,
     useParams,
 } from "react-router-dom";
+import { compose } from 'redux';
 
 // 1 рабочий вариант
+//т.к. withRouter() нет в react router v6, то
 // Функция-обертка (контейнерная компонента) для передачи значения параметров url (значения userId) через props в  class ProfileContainer => для отрисовки в адресной строке
 // wrapper to use react router's v6 hooks in class component(to use HOC pattern, like in router v5)
 // из доки https://reactrouter.com/en/main/start/faq
@@ -31,36 +34,14 @@ function withRouter(Component) {
     return ComponentWithRouterProp;
 }
 
-//  рабочий вариант
-// https://qna.habr.com/q/1075082
-
-// const withRouter = WrappedComponent => props => {
-//     const params = useParams();
-//     // etc... other react-router-dom v6 hooks
-//     let location = useLocation();
-//     let navigate = useNavigate();
-//     return (
-//         <WrappedComponent
-//             {...props}
-//             params={params}
-//             location={location}
-//             navigate={navigate}
-//             // etc...
-//         />
-//     );
-// };
-
 class ProfileContainer extends React.Component {
     componentDidMount() {
         let userId = this.props.router.params.userId;
-        // для 2 рабочего варианта 
-        // let userId = this.props.params.userId;
         if(!userId) {
             userId = 2;
         }
         this.props.getUserProfile(userId); // в адресную строку вручную добавить / перед номером id
     }
-
     render() {
         if(!this.props.isAuth) return <Navigate to={'/login'} />; 
 
@@ -71,8 +52,9 @@ class ProfileContainer extends React.Component {
 }
 
 
+// Теперь в COMPOSE:
 // Контейнерная компонета возвращаемая HOC'ом
-let AuthRedirectComponent = withAuthRedirect(ProfileContainer);
+// let AuthRedirectComponent = withAuthRedirect(ProfileContainer);
 
 let mapStateToProps = (state) => (
     {
@@ -80,18 +62,15 @@ let mapStateToProps = (state) => (
     }
 )
 
-let WithUrlDataContainerComponent = withRouter(AuthRedirectComponent);
+// let WithUrlDataContainerComponent = withRouter(AuthRedirectComponent);
 
-export default connect(mapStateToProps, {getUserProfile})(WithUrlDataContainerComponent);
+// export default connect(mapStateToProps, {getUserProfile})(WithUrlDataContainerComponent);
 
-
-// react router v5
-
-// Возвращает новую контейнерную компоненту, в которую закинутся данные из URL
-// let WithUrlDataContainerComponent = withRouter(ProfileContainer);
-
-// // Возвращает новую компоненту, в которую закинутся данные из STORE, которая отрисует ProfileContainer
-// export default connect(mapStateToProps, {setUserProfile}) (WithUrlDataContainerComponent);
-
+// Эта функция объединила весь вышеописанный конвеер функций. ProfileContainer передается снизу вверх.
+export default compose(
+    connect(mapStateToProps, {getUserProfile}),
+    withRouter,
+    withAuthRedirect
+) (ProfileContainer);
 
 

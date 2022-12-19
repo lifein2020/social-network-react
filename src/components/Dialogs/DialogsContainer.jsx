@@ -4,6 +4,7 @@ import { sendMessageCreator, updateNewMessageBodyCreator } from '../../redux/dia
 // import StoreContext from '../../StoreContext';
 import { connect } from 'react-redux';
 import { withAuthRedirect } from '../../hoc/withAuthRedirect';
+import { compose } from 'redux';
 
 
 // connect() позволяет нам забыть про store. Мы теперь пользуемся state.
@@ -30,13 +31,19 @@ let mapDispatchToProps = (dispatch) => {
     }
 }
 
-// HOC
-let AuthRedirectComponent = withAuthRedirect(Dialogs);
+export default compose(
+    connect(mapStateToProps, mapDispatchToProps),
+    withAuthRedirect
+) (Dialogs);
 
-// connect() возвращает новую контейнерную компоненту, которая внутри рендерит презентационную компоненту, внутрь презентационной компоненты в качестве props передает те свойства, которые сидят в объектах, которые ретурнит mapStateToProp, mapDispatchToProp.Настраиваем данными функциями connect.
-// Dialogs законнектится к store по правилам connect()
-// Dialogs перерисуется, если изменится объект state.dialogsPage
+// Теперь в compose
+// // HOC
+// let AuthRedirectComponent = withAuthRedirect(Dialogs);
 
-const DialogsContainer = connect(mapStateToProps, mapDispatchToProps) (AuthRedirectComponent);
+// // connect() возвращает новую контейнерную компоненту, которая внутри рендерит презентационную компоненту, внутрь презентационной компоненты в качестве props передает те свойства, которые сидят в объектах, которые ретурнит mapStateToProp, mapDispatchToProp.Настраиваем данными функциями connect.
+// // Dialogs законнектится к store по правилам connect()
+// // Dialogs перерисуется, если изменится объект state.dialogsPage
 
-export default DialogsContainer;
+// const DialogsContainer = connect(mapStateToProps, mapDispatchToProps) (AuthRedirectComponent);
+
+// export default DialogsContainer;

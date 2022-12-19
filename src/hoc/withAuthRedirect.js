@@ -1,5 +1,6 @@
 import React from "react";
 import { Navigate } from "react-router-dom";
+import { connect } from 'react-redux';
 
 export const withAuthRedirect = (Component) => {
     // можно создать класс, можно - функцию для каждой целевой компоненты (Component)
@@ -16,7 +17,7 @@ export const withAuthRedirect = (Component) => {
             isAuth: state.auth.isAuth,
         }
     )
-    
+    // обертка для того чтобы автоматически передать isAuth из mapStateToProps
     let ConnectedAuthRedirectComponent = connect(mapStateToPropsForRedirect) (RedirectComponent);
 
     return ConnectedAuthRedirectComponent;
