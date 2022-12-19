@@ -11,32 +11,27 @@ const instance = axios.create({
 
 // впомогательный объект, содержащий методы - упаковка для всех методов
 export const usersAPI = {
-    getUsers(currentPage=1, pageSize=10) {
+    getUsers(currentPage = 1, pageSize = 10) {
         return instance.get(`users?page=${currentPage}&count=${pageSize}`) // === axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${currentPage}&count=${pageSize}`)
             .then(response => {
                 return response.data; // чтобы в компоненту не передавалось ничего лишнего
             })
     },
     follow(userId) {
-        return instance.post(`https://social-network.samuraijs.com/api/1.0/follow/${userId}`)
+        return instance.post(`follow/${userId}`)
     },
     unfollow(userId) {
-        return instance.delete(`https://social-network.samuraijs.com/api/1.0/follow/${userId}`)
+        return instance.delete(`follow/${userId}`)
+    },
+    getProfile(userId) {
+        return instance.get(`profile/` + userId);
     }
 }
 
-// перенесли в usersAPI
-// export const getUsers = (currentPage=1, pageSize=10) => {
-//     return instance.get(`users?page=${currentPage}&count=${pageSize}`) // === `https://social-network.samuraijs.com/api/1.0/users?page=${currentPage}&count=${pageSize}`
-//         .then(response => {
-//             return response.data;
-//         })
-// }
 
-// нерабочие заготовки для следующих уроков
-// export const instance.getAuthMe = (setAuthUserData) => {
-//     axios.get(`https://social-network.samuraijs.com/api/1.0/auth/me`, {
-//         withCredentials: true
-//     })
-//     .then(response => response.data)
-// }
+export const authAPI = {
+     // запрос чтобы понять кто мы, залогинены или нет
+    me() {
+        return instance.get(`auth/me`)
+    },
+}

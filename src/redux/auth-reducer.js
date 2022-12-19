@@ -8,7 +8,6 @@ let initialState = {
     email: null,
     login: null,
     isAuth: true, // пользователь залогинен
-    // isFetching: true
 };
 
 // Инициализируем начальное значение с помощью параметров по умолчанию state = initialState
