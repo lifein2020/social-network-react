@@ -14,32 +14,7 @@ const ProfileInfo = (props) => {
             </div> */}
             <div className={s.descriptionBlock}>
                 <img src={props.profile.photos.large} alt='Profile'/>
-                <ProfileStatus status={"hello!"}/>
-                {/* <div>About me:
-                    <span> {props.profile.aboutMe}</span>
-                </div>
-                <div>About me:
-                    <span> {props.profile.aboutMe}</span>
-                </div>
-                <div>Contacts:
-                    <div> {props.profile.contacts.facebook}</div>
-                    <div> {props.profile.contacts.website}</div>
-                    <div> {props.profile.contacts.vk}</div>
-                    <div> {props.profile.contacts.twitter}</div>
-                    <div> {props.profile.contacts.instagram}</div>
-                    <div> {props.profile.contacts.youtubek}</div>
-                    <div> {props.profile.contacts.github}</div>
-                    <div> {props.profile.contacts.mailLink}</div>
-                </div>
-                <div>Looking for a job: 
-                    <span> s{props.profile.lookingForAJob}</span>
-                </div>
-                <div>Looking for a job description: 
-                    <span> {props.profile.lookingForAJobDescription}</span>
-                </div>
-                <div>Full name:
-                    <span> {props.profile.fullName}</span>
-                </div> */}
+                <ProfileStatus status={props.status} updateStatus={props.updateStatus}/>
             </div>
         </div>
   )

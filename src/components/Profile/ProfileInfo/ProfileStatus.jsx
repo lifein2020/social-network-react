@@ -1,13 +1,13 @@
 import React from 'react';
-import s from './ProfileInfo.module.css';
 
 class ProfileStatus extends React.Component {
     //локальный стейт
     state = {
         editMode: false,
+        status: this.props.status,
     }
 
-    activateEditMode() {
+    activateEditMode = () => {
         // console.log(this.state.editMode) // false
 
         // ассинхронный запуск
@@ -18,10 +18,18 @@ class ProfileStatus extends React.Component {
         // console.log(this.state.editMode) // false потому что setState запустится после этой строчки- и когда вернет true передаст его в render
     }
 
-    deactivateEditMode() {
+    deactivateEditMode = () => {
         this.setState( {
             editMode: false,
-        } )
+        } );
+        this.props.updateStatus(this.state.status);
+    }
+
+    // когда пользователь вбивает символы в input меняется только локальный стейт,  глобальный стейт не меняется,т.е. в DAL запрос не отправляется
+    onStatusChange = (e) => {
+        this.setState({
+            status: e.currentTarget.value
+        });
     }
 
     render() {
@@ -30,15 +38,17 @@ class ProfileStatus extends React.Component {
             <div>
                 {!this.state.editMode &&
                     <div>
-                        <span onDoubleClick={ this.activateEditMode.bind(this) }>{this.props.status}</span>
+                        <span onDoubleClick={ this.activateEditMode }>{this.props.status || "---"}</span>
                     </div>
                 }
                 {this.state.editMode &&
                     <div>
-                        <input autoFocus={true} onBlur={ this.deactivateEditMode.bind(this) } value={this.props.status} /> //при даблклике фокус в input автоматически
+                        <input onChange={ this.onStatusChange }
+                               autoFocus={ true } 
+                               onBlur={ this.deactivateEditMode } 
+                               value={ this.state.status } />  //при даблклике фокус в input автоматически появляется
                     </div>
                 }
-
             </div >
         )
     }
