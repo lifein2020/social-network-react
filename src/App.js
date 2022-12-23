@@ -9,17 +9,33 @@ import News from './components/News/News';
 import Music from './components/Music/Music';
 import Settings from './components/Settings/Settings';
 import { Routes, Route, Navigate } from "react-router-dom";
+import React from 'react';
+import { compose } from 'redux';
+import { connect } from 'react-redux';
+import { withRouter } from '../src/components/Profile/ProfileContainer';
+import Preloader from './components/common/preloader/Preloader';
+import { initializeApp } from '../src/redux/app-reducer';
 
-function App() {
-  return (
+class App extends React.Component {
+
+  componentDidMount() {
+    this.props.initializeApp(); //намерение получить данные
+  }
+
+  render() {
+
+    if (!this.props.initialized) {
+      return <Preloader />
+    }
+    return (
       <div className="app-wrapper">
         <HeaderContainer />
         <Navbar />
         <div className="app-wrapper-content">
           <Routes>
             <Route path="/dialogs" element={<DialogsContainer />} />
-            
-            <Route path="/profile" element={<ProfileContainer />} > 
+
+            <Route path="/profile" element={<ProfileContainer />} >
               <Route path=":userId" element={<ProfileContainer />} />
             </Route>
 
@@ -36,7 +52,15 @@ function App() {
           </Routes>
         </div>
       </div>
-  );
+    );
+  }
 }
 
-export default App;
+const mapStateToProps = (state) => ({
+  initialized: state.app.initialized,
+})
+
+// Когда оборачиваем компоненту с роутами, надо дополнительно оборачивать в withRouter, чтобы не было бага
+export default compose(
+  withRouter,
+  connect(mapStateToProps, { initializeApp }))(App);
