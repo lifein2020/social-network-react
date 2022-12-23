@@ -1,20 +1,21 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { follow, unfollow, setCurrentPage, toggleFollowingProgress, getUsers } from '../../redux/users-reducer';
+import { follow, unfollow, setCurrentPage, toggleFollowingProgress, requestUsers } from '../../redux/users-reducer';
 import Users from './Users';
 import Preloader from '../common/preloader/Preloader';
 import { compose } from 'redux';
 import { withAuthRedirect } from '../../hoc/withAuthRedirect';
+import { getUsers, getPageSize, getTotaUsersCount, getCurrentPage, getIsFetching, getFollowingInProgress } from '../../redux/users-selectors';
 
 class UsersAPIComponent extends React.Component {
     componentDidMount() {
         // теперь запросы в BLL (users-reduser)
-        this.props.getUsers(this.props.currentPage, this.props.pageSize);
+        this.props.requestUsers(this.props.currentPage, this.props.pageSize);
         
         // вместо:
         //     this.props.toggleIsFetching(true);
 
-    //     usersAPI.getUsers(this.props.currentPage, this.props.pageSize)
+    //     usersAPI.requestUsers(this.props.currentPage, this.props.pageSize)
     //         .then(data => {
     //             this.props.toggleIsFetching(false);
     //             this.props.setUsers(data.items);
@@ -24,12 +25,12 @@ class UsersAPIComponent extends React.Component {
 
     onPageChanged = (pageNumber) => {
 
-        this.props.getUsers(pageNumber, this.props.pageSize);
+        this.props.requestUsers(pageNumber, this.props.pageSize);
         // теперь в thunk в user-reducer
         // this.props.toggleIsFetching(true);
         // this.props.setCurrentPage(pageNumber);
 
-        // usersAPI.getUsers(pageNumber, this.props.pageSize)
+        // usersAPI.requestUsers(pageNumber, this.props.pageSize)
         //     .then(data => {
         //         this.props.toggleIsFetching(false);
         //         this.props.setUsers(data.items);
@@ -52,15 +53,26 @@ class UsersAPIComponent extends React.Component {
         </>
     }
 }
+// Теперь значения свойств получаем через селектроры из users-selectors.js
+// let mapStateToProps = (state) => {
+//     return {
+//         users: state.usersPage.users,
+//         pageSize: state.usersPage.pageSize,
+//         totalUsersCount: state.usersPage.totalUsersCount,
+//         currentPage: state.usersPage.currentPage,
+//         isFetching: state.usersPage.isFetching,
+//         followingInProgress: state.usersPage.followingInProgress,
+//     }
+// }
 
 let mapStateToProps = (state) => {
     return {
-        users: state.usersPage.users,
-        pageSize: state.usersPage.pageSize,
-        totalUsersCount: state.usersPage.totalUsersCount,
-        currentPage: state.usersPage.currentPage,
-        isFetching: state.usersPage.isFetching,
-        followingInProgress: state.usersPage.followingInProgress,
+        users: getUsers(state),
+        pageSize: getPageSize(state),
+        totalUsersCount: getTotaUsersCount(state),
+        currentPage: getCurrentPage(state),
+        isFetching: getIsFetching(state),
+        followingInProgress: getFollowingInProgress(state),
     }
 }
 
@@ -71,5 +83,5 @@ let mapStateToProps = (state) => {
 
 export default compose(
     // withAuthRedirect,
-    connect(mapStateToProps, { follow, unfollow, setCurrentPage, toggleFollowingProgress, getUsers })
+    connect(mapStateToProps, { follow, unfollow, setCurrentPage, toggleFollowingProgress, requestUsers })
 ) (UsersAPIComponent)
