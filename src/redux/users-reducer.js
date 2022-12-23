@@ -91,11 +91,12 @@ export const toggleIsFetching = (isFetching) => ({ type: TOGGLE_IS_FETCHING, isF
 export const toggleFollowingProgress = (isFetching, userId) => ({ type: TOGGLE_IS_FOLLOING_PROGRESS, isFetching, userId })
 
 // getUsers могли бы обозвать getUsersThunkCreator
-export const getUsers = (currentPage, pageSize) => {
+export const requestUsers = (currentPage, pageSize) => {
     // это thunk:
     return (dispatch) => {
 
         dispatch(toggleIsFetching(true));
+        dispatch(setCurrentPage(currentPage)); // чтобы выбранная траница делалась жирной
 
         usersAPI.getUsers(currentPage, pageSize)
             .then(data => {
