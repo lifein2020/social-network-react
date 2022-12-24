@@ -1,10 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
-// При двойном клике на статус появляется инпу 
+// При двойном клике на статус появляется инпут
 const ProfileStatusWithHooks = (props) => {
         //Этот хук возвращает массив из 2-х элементов
         let [editMode, setEditMode] = useState(false);
         let [status, setStatus] = useState(props.status);
+
+        useEffect( () => {
+            setStatus(props.status);
+        }, [props.status] );
 
 
         const activateEditMode = () => {

@@ -32,6 +32,7 @@ class ProfileStatus extends React.Component {
         });
     }
 
+    // Срабатывает при любом изменении либо пропсов извне, либо локального стейта
     componentDidUpdate(prevProps, prevState) {
         // тут всегда оборачиваем обновление в условие
         if(prevProps.status !== this.props.status) {
