@@ -8,7 +8,7 @@ import Login from './components/Login/Login';
 import News from './components/News/News';
 import Music from './components/Music/Music';
 import Settings from './components/Settings/Settings';
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import React from 'react';
 import { compose } from 'redux';
 import { connect } from 'react-redux';

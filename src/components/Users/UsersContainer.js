@@ -4,13 +4,14 @@ import { follow, unfollow, setCurrentPage, toggleFollowingProgress, requestUsers
 import Users from './Users';
 import Preloader from '../common/preloader/Preloader';
 import { compose } from 'redux';
-import { withAuthRedirect } from '../../hoc/withAuthRedirect';
+// import { withAuthRedirect } from '../../hoc/withAuthRedirect';
 import { getUsers, getPageSize, getTotaUsersCount, getCurrentPage, getIsFetching, getFollowingInProgress } from '../../redux/users-selectors';
 
 class UsersAPIComponent extends React.Component {
     componentDidMount() {
         // теперь запросы в BLL (users-reduser)
-        this.props.requestUsers(this.props.currentPage, this.props.pageSize);
+        const { currentPage, pageSize } = this.props;
+        this.props.requestUsers(currentPage, pageSize);
         
         // вместо:
         //     this.props.toggleIsFetching(true);
@@ -24,8 +25,8 @@ class UsersAPIComponent extends React.Component {
     }
 
     onPageChanged = (pageNumber) => {
-
-        this.props.requestUsers(pageNumber, this.props.pageSize);
+        const { pageSize } = this.props;
+        this.props.requestUsers(pageNumber, pageSize);
         // теперь в thunk в user-reducer
         // this.props.toggleIsFetching(true);
         // this.props.setCurrentPage(pageNumber);

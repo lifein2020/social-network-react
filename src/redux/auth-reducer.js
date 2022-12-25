@@ -2,7 +2,7 @@ import { authAPI } from '../api/api';
 
 // const FOLLOW = 'FOLLOW';
 // const UNFOLLOW = 'UNFOLLOW';
-const SET_USER_DATA = 'SET_USER_DATA';
+const SET_USER_DATA = 'social-network/auth/SET_USER_DATA';
 
 // Объект, передаваемый в качестве первоначального значения (скопировали из store.js -> _state -> profilePage)
 let initialState = {
@@ -28,15 +28,31 @@ const authReducer = (state = initialState, action) => {
     }
 }
 
-export const setAuthUserData = (userId, email,login) => ({ type: SET_USER_DATA, data: { userId, email, login } });
-export const getAuthUserData = () => (dispatch) => {
-    authAPI.me()
-        .then(response => {
-            if (response.data.resultCode === 0) {
-                let { id, email, login } = response.data.data; // деструктуризация
-                dispatch(setAuthUserData(id, email, login )); // проверить что пришло F12 -> Console -> store.getState().auth
-            }
-        });
+export const setAuthUserData = (userId, email, login) => ({ type: SET_USER_DATA, data: { userId, email, login } });
+
+export const getAuthUserData = () => async (dispatch) => {
+    let response = await authAPI.me();
+    if (response.data.resultCode === 0) {
+        let { id, email, login } = response.data.data; // деструктуризация
+        dispatch(setAuthUserData(id, email, login)); // проверить что пришло F12 -> Console -> store.getState().auth
+    }
 }
+
+// export const login = (email, password, rememberMe) => async (dispatch) => {
+//     let response = await authAPI.login(email, password, rememberMe);
+//     if (response.data.resultCode === 0) {
+//         dispatch(getAuthUserData())
+//     } else {
+//         let message = response.data.message.length > 0 ? response.data.message[0] : "Some error";
+//         dispatch(stopSubmit("login", {error: message}));
+//     }
+// }
+
+// export const logout = () => async (dispatch) => {
+//     let response = await authAPI.logout();
+//     if (response.data.resultCode === 0) {
+//         dispatch(setAuthUserData(null, null, null, false));
+//     }
+// }
 
 export default authReducer;
