@@ -12,7 +12,7 @@ const TOGGLE_IS_FOLLOING_PROGRESS = 'TOGGLE_IS_FOLLOING_PROGRESS';
 // Объект, передаваемый в качестве первоначального значения (скопировали из store.js -> _state -> profilePage)
 let initialState = {
     users: [],
-    pageSize: 5,
+    pageSize: 5, //10,
     totalUsersCount: 0,
     currentPage: 1,
     isFetching: true,
