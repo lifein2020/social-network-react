@@ -4,6 +4,7 @@ const ADD_POST = 'ADD-POST';
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
 const SET_USER_PROFILE = 'SET_USER_PROFILE';
 const SET_STATUS = "SET_STATUS";
+// const DELETE_POST = "DELETE_POST";
 
 // Объект, передаваемый в качестве первоначального значения (скопировали из store.js -> _state -> profilePage)
 let initialState = {
@@ -52,6 +53,12 @@ const profileReducer = (state = initialState, action) => {
                 profile: action.profile,
             }
         }
+        // case DELETE_POST: {
+        //     return {
+        //         ...state,
+        //         posts: state.posts.filter(p => p.id !== action.postId),
+        //     }
+        // }
         default:
             return state;
     }
@@ -65,6 +72,7 @@ export const updateNewPostTextActionCreator = (text) => (
 )
 export const setUserProfile = (profile) => ({ type: SET_USER_PROFILE, profile })
 export const setStatus = (status) => ({ type: SET_STATUS, status })
+// export const deletePostActionCreator = (postId) => ({ type: DELETE_POST }, postId)
 
 //thunk
 export const getUserProfile = (userId) => async (dispatch) => {
