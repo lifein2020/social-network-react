@@ -1,4 +1,4 @@
-import { authAPI } from '../api/api';
+// import { authAPI } from '../api/api';
 import { getAuthUserData } from '../redux/auth-reducer';
 
 const INITIALIZED_SUCCESS = 'INITIALIZED_SUCCESS';

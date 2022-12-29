@@ -1,5 +1,6 @@
 const UPDATE_NEW_MESSAGE_BODY = "UPDATE_NEW_MESSAGE_BODY";
 const SEND_MESSAGE = 'SEND_MESSAGE';
+// const DELETE_MESSAGE = 'DELETE_MESSAGE';
 
 let initialState = {
   dialogs: [
@@ -40,6 +41,12 @@ const dialogsReducer = (state = initialState, action) => {
         messages: [...state.messages, { id: 6, message: body }] // добавляем в элемент в конец массива стейта
       };
 
+      // case DELETE_MESSAGE:
+      // return {
+      //   ...state,
+      //   messages: state.messages.filter( m => m.id !== action.messageId),
+      // };
+
     default:
       return state;
   }
@@ -47,6 +54,7 @@ const dialogsReducer = (state = initialState, action) => {
 }
 
 export const sendMessageCreator = () => ({ type: SEND_MESSAGE })
+// export const deleteMessageActionCreator = (messageId) => ({ type: DELETE_MESSAGE }, messageId)
 
 export const updateNewMessageBodyCreator = (body) => (
   { type: UPDATE_NEW_MESSAGE_BODY, body: body }
